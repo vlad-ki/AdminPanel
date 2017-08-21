@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+	mongo:
+    	image: mongo:3.4
+    	volumes:
+      	- mongo:/data/db
+
+   	postgresql:
+   		image: postgres: 10-beta3
+   		volumes:
+   			- postgres: /data/postgres
+
+   	core:
+   		build: .
+   		entrypoint: ['/bin/sh', 'entrypoint.sh']
+		depends_on:
+      	- mongo
+      	- postgresql
+
