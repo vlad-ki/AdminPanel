@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin|{{title}}</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+	<header>
+		<h1>Admin panel</h1>
+	</header>
+
+	<table>
+		<tbody id='table__main' class='table__main'>
+			<tr>
+				<th>edit</th>
+				{% for name in FieldNames %}
+				<th>{{ name }}</th>
+				{% endfor %}
+			</tr>
+				{% for field in tableData %}
+				<tr>
+					<td><a href="/edit/{{ field['_id'] }}">e</a></td>
+					{% for name in FieldNames %}
+					<td>{{ field[name] }}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>
