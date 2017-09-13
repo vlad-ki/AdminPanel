@@ -1,41 +1,41 @@
 (function() {
 	'use strict'
 
-	function createHeaderField(fieldsNames){
+	function createHeaderField(tableFieldsNames){
 
 		var trItem = document.createElement('tr')
-		fieldsNames.unshift('e')
+		tableFieldsNames.unshift('e')
 
-		for (name in fieldsNames) {
+		for (name in tableFieldsNames) {
 			var thItem = document.createElement('th')
-			thItem.innerText = fieldsNames[name]
+			thItem.innerText = tableFieldsNames[name]
 			trItem.appendChild(thItem)
 		}
-		table.appendChild(trItem)
+		tableElement.appendChild(trItem)
 	}
 
 
-	function createTableFields(data, fieldsNames){
-		for (var line in data) {
+	function createTableFields(tableData, tableFieldsNames){
+		for (var line in tableData) {
 			var aItem = document.createElement('a')
 			var trItem = document.createElement('tr')
 
-			aItem.setAttribute('href', editUrl + data[line].id )
+			aItem.setAttribute('href', editUrl + tableData[line].id )
 			aItem.innerText = 'e'
 			trItem.appendChild(aItem)
 
-			for (var fieldName in fieldsNames) {
+			for (var fieldName in tableFieldsNames) {
 				var tdItem = document.createElement('td')
 
-				tdItem.innerText = data[line][fieldsNames[fieldName]]
+				tdItem.innerText = tableData[line][tableFieldsNames[fieldName]]
 				trItem.appendChild(tdItem)
 			}
-			table.appendChild(trItem)
+			tableElement.appendChild(trItem)
 		}
 	}
 
 
-	function getData(url) {
+	function getTableData(url) {
 		var req = new XMLHttpRequest
 		req.open('GET', url)
 
@@ -47,16 +47,17 @@
 		
 	}
 
-	// fieldsNames is an Array witch containst fealds names for main table
+	// tableFieldsNames is an Array which containst fealds names for main table
 	/*
-	 data is an array of objects witch contaist maps like {'id': 'idValue', fiel_name1': 'value1', fiel_nameN': 'valueN', ...}
+	 tableData is an array of objects which contaist maps like 
+	 {'id': 'idValue', fiel_name1': 'value1', fiel_nameN': 'valueN', ...}
 	 the id is a unique identifer of the note in DB
 	*/
-	var fieldsNames = getData('/table/main/fieldsnames')
-	var data = getData('/table/main/data')
+	var tableFieldsNames = getTableData('/table/main/tableFieldsnames')
+	var tableData = getTableData('/table/main/tableData')
 	var editUrl = '/crud/edit/'
-	var table = document.getElementsByClassName('table__main')[0]
-	
+	var tableElement = document.getElementsByClassName('table__main')[0]
+
 	createHeaderField()
 	createTableFields()
 
