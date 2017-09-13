@@ -3,7 +3,7 @@
 <head>
 	<title>Admin|{{title}}</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" type="text/css" href="../main.css">
 </head>
 <body>
 	<header>
@@ -15,17 +15,16 @@
 		{% for field_name, value in note.items() %}
 			<div class="ap-form-row">
 				<label for="{{field_name}}">{{field_name}}</label>
-				<input class="ap-form-input" type="text" id="{{field_name}}" value="{{value}}" required>
+				<input class="ap-form-input" type="text" name="{{field_name}}" value="{{value}}" required>
 			</div>
 		{% endfor %}
 			<div class="">
-				<button class="" type="submit" formaction="/edit/{{ note['_id'] }}">Submit</button>
+				<button class="" type="submit" formmethod="post" formaction="/edit/{{ note['_id'] }}">Submit</button>
 			</div>
 		</fieldset>
 		</form>
 
 </body>
-<script type="text/javascript" src="edit.js"></script>
 </html>
 <!-- тут я ожидаю получить словарь отображающий поле на значение -->
 <!-- с помощью него создать поля для редактирования -->

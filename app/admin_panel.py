@@ -29,18 +29,17 @@ def edit(id):
 
 
 @bottle.post('/edit/<id>')
-def edit():
-    user_for_edit = Users()
-    user_for_edit._id = ObjectId(id)
-    user_for_edit.fierst_name = bottle.requests.forms.get('fierst_name')
-    user_for_edit.last_name = bottle.requests.forms.get('last_name')
-    user_for_edit.age = bottle.requests.forms.get('age')
-    db(Users).update_one(user_for_edit)
+def edit(id):
+    user_for_edit = db(Users).find_one({'_id': ObjectId(id)})
+    if not user_for_edit:
+        raise TypeError('query {} returned None'.format('{"_id": ObjectId(id)}'))
+    user_for_edit.fierst_name = bottle.request.forms.get('fierst_name')
+    user_for_edit.last_name = bottle.request.forms.get('last_name')
+    user_for_edit.age = bottle.request.forms.get('age')
+    db.save(user_for_edit)
 
     bottle.redirect('/')
 
 
-
-
 if __name__ == '__main__':
-    bottle.run(host='localhost', port=8080, reloader=True)
+    bottle.run(host='localhost', port=8082, reloader=True)
