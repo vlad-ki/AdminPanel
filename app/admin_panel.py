@@ -33,9 +33,8 @@ def edit(id):
     user_for_edit = db(Users).find_one({'_id': ObjectId(id)})
     if not user_for_edit:
         raise TypeError('query {} returned None'.format('{"_id": ObjectId(id)}'))
-    user_for_edit.fierst_name = bottle.request.forms.get('fierst_name')
-    user_for_edit.last_name = bottle.request.forms.get('last_name')
-    user_for_edit.age = bottle.request.forms.get('age')
+    for field_name in Users.__fields__.keys():
+        setattr(user_for_edit, field_name, bottle.request.forms.get(field_name))
     db.save(user_for_edit)
 
     bottle.redirect('/')
